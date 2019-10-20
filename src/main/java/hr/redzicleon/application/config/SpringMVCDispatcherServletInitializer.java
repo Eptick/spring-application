@@ -19,6 +19,5 @@ public class SpringMVCDispatcherServletInitializer extends AbstractAnnotationCon
 	protected String[] getServletMappings() {
 		return new String[] { "/" };
 	}
-	
 
 }
