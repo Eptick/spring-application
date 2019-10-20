@@ -9,11 +9,13 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule } from '@angular/forms';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginPageComponent
+    LoginPageComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
