@@ -21,6 +21,11 @@ export class LoginPageComponent implements OnInit {
 
   ngOnInit() {
     console.log("aaa")
+    this.logCompanies();
+  }
+
+  async logCompanies() {
+    console.log(await this.httpService.getCompanies());
   }
 
 }
