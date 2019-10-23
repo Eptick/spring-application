@@ -25,6 +25,7 @@ export class LoginPageComponent {
 
   async submit() {
     try {
+      this.loginForm.markAllAsTouched()
       if(this.loginForm.invalid) return
       const username = this.loginForm.get('username').value
       const password = this.loginForm.get('password').value

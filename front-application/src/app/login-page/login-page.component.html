@@ -1,24 +1,26 @@
 <div>
   <app-card class="card">
     <form class="login-form" [formGroup]="loginForm" (ngSubmit)="submit()">
-      <mat-form-field class="login-full-width" >
-        <input matInput placeholder="Username"
-                formControlName="username">
-        <mat-error *ngIf="loginForm.get('username').hasError('required')">
+      <app-form-field class="login-full-width" >
+        <input placeholder="Username" formControlName="username">
+        <app-error *ngIf="loginForm.get('username').touched && loginForm.get('username').hasError('required')">
           Username is <strong>required</strong>
-        </mat-error>
-      </mat-form-field>
-      <mat-form-field>
-        <input formControlName="password" matInput placeholder="Enter your password" [type]="hide ? 'password' : 'text'">
-        <button tabindex="-1" mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
-        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-        </button>
-        <mat-error *ngIf="loginForm.get('password').hasError('required')">
+        </app-error>
+        <app-error *ngIf="loginForm.get('username').touched && loginForm.get('username').hasError('minlength')">
+          Username has a minimum length of <strong>4</strong>
+        </app-error>
+      </app-form-field>
+      <app-form-field>
+        <input formControlName="password" type="password" placeholder="Enter your password">
+        <app-error *ngIf="loginForm.get('password').touched && loginForm.get('password').hasError('required')">
           Password is <strong>required</strong>
-        </mat-error>
-      </mat-form-field>
-      <button mat-raised-button color="primary" type="submit" class="login-btn">Login</button>
-      <mat-error class="error-form" *ngIf="formError">{{ formError }}</mat-error>
+        </app-error>
+        <app-error *ngIf="loginForm.get('password').touched && loginForm.get('password').hasError('minlength')">
+          Password has a minimum length of <strong>4</strong>
+        </app-error>
+      </app-form-field>
+      <button type="submit" class="btn primary">Login</button>
+      <app-error class="error-form" *ngIf="formError">{{ formError }}</app-error>
   </form>
   </app-card>
 </div>

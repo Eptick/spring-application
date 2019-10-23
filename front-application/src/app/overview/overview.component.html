@@ -1,113 +1,108 @@
-<mat-card class="card">
+<app-card class="card">
   <form class="login-form" [formGroup]="userForm" (ngSubmit)="submit()">
-    <mat-form-field class="login-full-width" >
-      <input matInput placeholder="Username"
-              formControlName="username">
-      <mat-error *ngIf="userForm.get('username').hasError('required')">
+    <app-form-field class="login-full-width" >
+      <input placeholder="Username" formControlName="username">
+      <app-error *ngIf="userForm.get('username').hasError('required')">
         Username is <strong>required</strong>
-      </mat-error>
-    </mat-form-field>
-    <mat-form-field>
-      <input formControlName="password" matInput placeholder="Enter your password" [type]="hide ? 'password' : 'text'">
-      <button mat-icon-button matSuffix tabindex="-1"(click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
-      <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-      </button>
-      <mat-error *ngIf="userForm.get('password').hasError('required')">
+      </app-error>
+    </app-form-field>
+    <app-form-field>
+      <input formControlName="password" placeholder="Enter your password" [type]="hide ? 'password' : 'text'">
+      <app-error *ngIf="userForm.get('password').hasError('required')">
         Password is <strong>required</strong>
-      </mat-error>
-    </mat-form-field>
-    <mat-form-field class="login-full-width" >
-      <input matInput placeholder="Name"
-              formControlName="name">
-      <mat-error *ngIf="userForm.get('name').hasError('required')">
+      </app-error>
+    </app-form-field>
+    <app-form-field class="login-full-width" >
+      <input placeholder="Name" formControlName="name">
+      <app-error *ngIf="userForm.get('name').hasError('required')">
         Name is <strong>required</strong>
-      </mat-error>
-    </mat-form-field>
-    <mat-form-field class="login-full-width" >
-      <input matInput placeholder="Surname"
-              formControlName="surname">
-      <mat-error *ngIf="userForm.get('surname').hasError('required')">
+      </app-error>
+    </app-form-field>
+    <app-form-field class="login-full-width" >
+      <input placeholder="Surname" ormControlName="surname">
+      <app-error *ngIf="userForm.get('surname').hasError('required')">
         Surname is <strong>required</strong>
-      </mat-error>
-    </mat-form-field>
-    <mat-form-field class="login-full-width" >
-      <input matInput placeholder="Email"
-              type="email"
-              formControlName="email">
-      <mat-error *ngIf="userForm.get('email').hasError('required')">
+      </app-error>
+    </app-form-field>
+    <app-form-field class="login-full-width" >
+      <input  placeholder="Email" type="email" formControlName="email">
+      <app-error *ngIf="userForm.get('email').hasError('required')">
         Email is <strong>required</strong>
-      </mat-error>
-      <mat-error *ngIf="userForm.get('email').hasError('email')">
+      </app-error>
+      <app-error *ngIf="userForm.get('email').hasError('email')">
         Wrong email format
-      </mat-error>
-    </mat-form-field>
-    <mat-form-field class="login-full-width" >
-      <input matInput placeholder="yearOfBirth"
+      </app-error>
+    </app-form-field>
+    <app-form-field class="login-full-width" >
+      <input  placeholder="yearOfBirth"
               type="number"
               formControlName="yearOfBirth">
-      <mat-error *ngIf="userForm.get('yearOfBirth').hasError('required')">
-        yearOfBirth is <strong>required</strong>
-      </mat-error>
-    </mat-form-field>
-    <mat-form-field>
-      <mat-label>Select an option</mat-label>
-      <mat-select  formControlName="companyId">
-        <mat-option [value]="company.id" *ngFor="let company of companyData">{{ company.name }}</mat-option>
-      </mat-select>
-    </mat-form-field>
-    <button mat-raised-button color="primary" type="submit" class="login-btn">Register user</button>
-    <mat-error class="error-form" *ngIf="formError">{{ formError }}</mat-error>
+      <app-error *ngIf="userForm.get('yearOfBirth').hasError('required')">
+        Year of birth is <strong>required</strong>
+      </app-error>
+    </app-form-field>
+    <app-form-field>
+      <label>Select an option</label>
+      <select  formControlName="companyId">
+        <option [value]="company.id" *ngFor="let company of companyData">{{ company.name }}</option>
+      </select>
+    </app-form-field>
+    <button app-raised-button color="primary" type="submit" class="login-btn">Register user</button>
+    <app-error class="error-form" *ngIf="formError">{{ formError }}</app-error>
 </form>
-</mat-card>
+</app-card>
 
-<table mat-table [dataSource]="companyData" class="mat-elevation-z8">
-    <ng-container matColumnDef="id">
-      <th mat-header-cell *matHeaderCellDef> Id </th>
-      <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+<!---
+  <table[dataSource]="companyData" class="app-elevation-z8">
+    <ng-container appColumnDef="id">
+      <th *appHeaderCellDef> Id </th>
+      <td *appCellDef="let element"> {{element.id}} </td>
     </ng-container>
-    <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef> Name </th>
-      <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+    <ng-container appColumnDef="name">
+      <th app-header-cell *appHeaderCellDef> Name </th>
+      <td app-cell *appCellDef="let element"> {{element.name}} </td>
     </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="companyColums"></tr>
-    <tr mat-row *matRowDef="let row; columns: companyColums;"></tr>
+    <tr app-header-row *appHeaderRowDef="companyColums"></tr>
+    <tr app-row *appRowDef="let row; columns: companyColums;"></tr>
+</table> -->
+
+<!--
+<table  [dataSource]="userData" class="app-elevation-z8">
+    <ng-container appColumnDef="userId">
+      <th app-header-cell *appHeaderCellDef> ID </th>
+      <td app-cell *appCellDef="let element"> {{element.userId}} </td>
+    </ng-container>
+    <ng-container appColumnDef="username">
+      <th app-header-cell *appHeaderCellDef> Username </th>
+      <td app-cell *appCellDef="let element"> {{element.username}} </td>
+    </ng-container>
+    <ng-container appColumnDef="password">
+      <th app-header-cell *appHeaderCellDef> Password </th>
+      <td app-cell *appCellDef="let element" class="password-cell"> {{element.password}} </td>
+    </ng-container>
+    <ng-container appColumnDef="name">
+      <th app-header-cell *appHeaderCellDef> Name </th>
+      <td app-cell *appCellDef="let element"> {{element.name}} </td>
+    </ng-container>
+    <ng-container appColumnDef="surname">
+      <th app-header-cell *appHeaderCellDef> Surname </th>
+      <td app-cell *appCellDef="let element"> {{element.surname}} </td>
+    </ng-container>
+    <ng-container appColumnDef="email">
+      <th app-header-cell *appHeaderCellDef> E-Mail </th>
+      <td app-cell *appCellDef="let element"> {{element.email}} </td>
+    </ng-container>
+    <ng-container appColumnDef="yearOfBirth">
+      <th app-header-cell *appHeaderCellDef> Year of Birth </th>
+      <td app-cell *appCellDef="let element"> {{element.yearOfBirth}} </td>
+    </ng-container>
+    <ng-container appColumnDef="companyName">
+      <th app-header-cell *appHeaderCellDef> Company name </th>
+      <td app-cell *appCellDef="let element"> {{element.companyName}} </td>
+    </ng-container>
+
+    <tr app-header-row *appHeaderRowDef="userColums"></tr>
+    <tr app-row *appRowDef="let row; columns: userColums;"></tr>
 </table>
-
-<table mat-table [dataSource]="userData" class="mat-elevation-z8">
-    <ng-container matColumnDef="userId">
-      <th mat-header-cell *matHeaderCellDef> ID </th>
-      <td mat-cell *matCellDef="let element"> {{element.userId}} </td>
-    </ng-container>
-    <ng-container matColumnDef="username">
-      <th mat-header-cell *matHeaderCellDef> Username </th>
-      <td mat-cell *matCellDef="let element"> {{element.username}} </td>
-    </ng-container>
-    <ng-container matColumnDef="password">
-      <th mat-header-cell *matHeaderCellDef> Password </th>
-      <td mat-cell *matCellDef="let element" class="password-cell"> {{element.password}} </td>
-    </ng-container>
-    <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef> Name </th>
-      <td mat-cell *matCellDef="let element"> {{element.name}} </td>
-    </ng-container>
-    <ng-container matColumnDef="surname">
-      <th mat-header-cell *matHeaderCellDef> Surname </th>
-      <td mat-cell *matCellDef="let element"> {{element.surname}} </td>
-    </ng-container>
-    <ng-container matColumnDef="email">
-      <th mat-header-cell *matHeaderCellDef> E-Mail </th>
-      <td mat-cell *matCellDef="let element"> {{element.email}} </td>
-    </ng-container>
-    <ng-container matColumnDef="yearOfBirth">
-      <th mat-header-cell *matHeaderCellDef> Year of Birth </th>
-      <td mat-cell *matCellDef="let element"> {{element.yearOfBirth}} </td>
-    </ng-container>
-    <ng-container matColumnDef="companyName">
-      <th mat-header-cell *matHeaderCellDef> Company name </th>
-      <td mat-cell *matCellDef="let element"> {{element.companyName}} </td>
-    </ng-container>
-
-    <tr mat-header-row *matHeaderRowDef="userColums"></tr>
-    <tr mat-row *matRowDef="let row; columns: userColums;"></tr>
-</table>
+-->

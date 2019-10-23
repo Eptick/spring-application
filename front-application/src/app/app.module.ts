@@ -11,7 +11,6 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { InterceptorService } from './interceptor.service';
 import { CookieService} from 'ngx-cookie-service';
 import { OverviewComponent } from './overview/overview.component';
-import { CardComponent } from './view/card/card.component';
 import { ViewModule } from './view/view.module';
 
 @NgModule({
@@ -20,7 +19,6 @@ import { ViewModule } from './view/view.module';
     LoginPageComponent,
     PageNotFoundComponent,
     OverviewComponent,
-    CardComponent,
   ],
   imports: [
     BrowserModule,
