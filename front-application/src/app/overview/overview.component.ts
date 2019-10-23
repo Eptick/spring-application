@@ -16,7 +16,8 @@ declare var window: any;
 export class OverviewComponent implements OnInit {
 
   companyData: Company[] = [];
-  companyColums: string[] = ['id', 'name']
+  companyColums: string[] = ['id', 'name'];
+  hide = true;
 
   userData: User[] = [];
   userColums: string[] = 
