@@ -11,6 +11,8 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { InterceptorService } from './interceptor.service';
 import { CookieService} from 'ngx-cookie-service';
 import { OverviewComponent } from './overview/overview.component';
+import { CardComponent } from './view/card/card.component';
+import { ViewModule } from './view/view.module';
 
 @NgModule({
   declarations: [
@@ -18,13 +20,15 @@ import { OverviewComponent } from './overview/overview.component';
     LoginPageComponent,
     PageNotFoundComponent,
     OverviewComponent,
+    CardComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
-    NoopAnimationsModule
+    NoopAnimationsModule,
+    ViewModule
   ],
   providers: [
     {

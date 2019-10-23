@@ -1,5 +1,5 @@
 <div>
-  <mat-card class="card">
+  <app-card class="card">
     <form class="login-form" [formGroup]="loginForm" (ngSubmit)="submit()">
       <mat-form-field class="login-full-width" >
         <input matInput placeholder="Username"
@@ -20,5 +20,5 @@
       <button mat-raised-button color="primary" type="submit" class="login-btn">Login</button>
       <mat-error class="error-form" *ngIf="formError">{{ formError }}</mat-error>
   </form>
-  </mat-card>
+  </app-card>
 </div>
