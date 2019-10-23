@@ -24,8 +24,7 @@ public class AuthSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
       Authentication authentication) 
       throws ServletException, IOException {
   
-        SavedRequest savedRequest
-          = requestCache.getRequest(request, response);
+        SavedRequest savedRequest = requestCache.getRequest(request, response);
  
         if (savedRequest == null) {
             clearAuthenticationAttributes(request);
