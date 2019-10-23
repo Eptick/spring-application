@@ -1,31 +1,45 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, FormBuilder, Validators, FormGroupDirective, NgForm } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { HttpService } from '../http-service.service';
+import { AuthService } from '../auth.service';
+import { TouchSequence } from 'selenium-webdriver';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login-page',
   templateUrl: './login-page.component.html',
   styleUrls: ['./login-page.component.scss'],
 })
-export class LoginPageComponent implements OnInit {
+export class LoginPageComponent {
   loginForm: FormGroup;
-  matcher: ErrorStateMatcher;
+  hide = true;
 
-  constructor(public httpService: HttpService) { 
-    this.loginForm = new FormGroup({
-       firstName: new FormControl()
-    });
-    this.matcher = new ErrorStateMatcher();
+  formError = ''
+
+  constructor(public authService: AuthService, private formBuilder: FormBuilder, private router: Router) { 
+    this.loginForm = this.formBuilder.group({
+      username: ['', [Validators.required, Validators.minLength(4)]],
+      password: ['', [Validators.required, Validators.minLength(4)]]
+
+      // email: ['', [Validators.required, Validators.email]],
+    })
   }
 
-  ngOnInit() {
-    console.log("aaa")
-    this.logCompanies();
-  }
-
-  async logCompanies() {
-    console.log(await this.httpService.getCompanies());
+  async submit() {
+    try {
+      if(this.loginForm.invalid) return
+      const username = this.loginForm.get('username').value
+      const password = this.loginForm.get('password').value
+      let data = await this.authService.login(username, password);
+      if(data.success) {
+        this.router.navigate(["/overview"])
+      } else {
+        this.formError = "Wrong username or password"
+      }
+    } catch (error) {
+      this.formError = "Something went wrong"
+    }
   }
 
 }

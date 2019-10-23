@@ -6,9 +6,11 @@ import java.util.Optional;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
 
 import hr.redzicleon.application.model.User;
@@ -16,6 +18,9 @@ import hr.redzicleon.application.model.User;
 @Repository
 public class UserDao implements Dao<User> {
 
+	@Autowired
+	PasswordEncoder passwordEncoder;
+	
 	private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
 	@Autowired
@@ -30,22 +35,38 @@ public class UserDao implements Dao<User> {
 	}
 
 	public Optional<User> get(int id) {
-		final SqlParameterSource namedParameters = new MapSqlParameterSource().addValue("id", id);
-
-		return Optional.ofNullable(namedParameterJdbcTemplate.queryForObject("SELECT * FROM users where user_id = :id",
-				namedParameters, new UserRowMapper()));
+		try {
+			final SqlParameterSource namedParameters = new MapSqlParameterSource().addValue("id", id);
+			
+			return Optional.ofNullable(namedParameterJdbcTemplate.queryForObject("SELECT * FROM users where user_id = :id",
+					namedParameters, new UserRowMapper()));			
+		} catch (EmptyResultDataAccessException e) {
+			return Optional.empty();
+		}
+	}
+	
+	public Optional<User> findByUsername(String username) {
+		try {
+			final SqlParameterSource namedParameters = new MapSqlParameterSource().addValue("username", username);
+			
+			return Optional.ofNullable(namedParameterJdbcTemplate.queryForObject("SELECT * FROM users where username LIKE :username",
+					namedParameters, new UserRowMapper()));			
+		} catch (EmptyResultDataAccessException e) {
+			return Optional.empty();
+		}
 	}
 
 	public void save(User t) {
+		String password = this.passwordEncoder.encode(t.getPassword());
 		final SqlParameterSource namedParameters = new MapSqlParameterSource()
 				.addValue("username", t.getUsername())
-				.addValue("password", t.getPassword())
+				.addValue("password", password)
 				.addValue("name", t.getName())
 				.addValue("surname", t.getSurname())
 				.addValue("year_of_birth", t.getYearOfBirth())
 				.addValue("email", t.getEmail())
 				.addValue("companyId", t.getCompanyId());
-		namedParameterJdbcTemplate.update("INSERT INTO users VALUES (default, :username, :password, :name, :surname,"
+		namedParameterJdbcTemplate.update("INSERT INTO users VALUES (default, :username, :password, true, :name, :surname,"
 				+ ":year_of_birth, :email, :companyId)", namedParameters);
 
 	}

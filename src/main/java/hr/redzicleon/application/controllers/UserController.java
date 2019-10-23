@@ -36,7 +36,7 @@ public class UserController {
 	@RequestMapping(value = "/{id}")
 	public User getUser(@PathVariable("id") int companyId) {
 		return this.userService.getUser(companyId);
-	 }
+	}
 	
 	@ResponseBody
 	@RequestMapping(value = "/register", method = RequestMethod.POST )

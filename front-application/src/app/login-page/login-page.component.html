@@ -1,29 +1,24 @@
 <div>
   <mat-card>
-    <form class="example-form" [formGroup]="loginForm">
+    <form class="example-form" [formGroup]="loginForm" (ngSubmit)="submit()">
       <mat-form-field class="example-full-width" >
         <input matInput placeholder="Username"
-               [errorStateMatcher]="matcher">
-        <mat-hint>Errors appear instantly!</mat-hint>
-        <mat-error *ngIf="loginForm.hasError('username') && !loginForm.hasError('required')">
-          Username is not valid
-        </mat-error>
-        <mat-error *ngIf="loginForm.hasError('required')">
+                formControlName="username">
+        <mat-error *ngIf="loginForm.get('username').hasError('required')">
           Username is <strong>required</strong>
         </mat-error>
       </mat-form-field>
-      <mat-form-field class="example-full-width" >
-        <input matInput placeholder="Email"
-               [errorStateMatcher]="matcher">
-        <mat-hint>Errors appear instantly!</mat-hint>
-        <mat-error *ngIf="loginForm.hasError('email') && !loginForm.hasError('required')">
-          Please enter a valid email address
-        </mat-error>
-        <mat-error *ngIf="loginForm.hasError('required')">
-          Email is <strong>required</strong>
+      <mat-form-field>
+        <input formControlName="password" matInput placeholder="Enter your password" [type]="hide ? 'password' : 'text'">
+        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+        <mat-error *ngIf="loginForm.get('password').hasError('required')">
+          Password is <strong>required</strong>
         </mat-error>
       </mat-form-field>
-      <button mat-raised-button color="primary" class="login-btn">Login</button>
+      <button mat-raised-button color="primary" type="submit" class="login-btn">Login</button>
+      <mat-error class="error-form" *ngIf="formError">{{ formError }}</mat-error>
   </form>
   </mat-card>
 </div>
