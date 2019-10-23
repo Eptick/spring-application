@@ -1,1 +1,113 @@
-<p>overview works!</p>
+<mat-card class="card">
+  <form class="login-form" [formGroup]="userForm" (ngSubmit)="submit()">
+    <mat-form-field class="login-full-width" >
+      <input matInput placeholder="Username"
+              formControlName="username">
+      <mat-error *ngIf="userForm.get('username').hasError('required')">
+        Username is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input formControlName="password" matInput placeholder="Enter your password" [type]="hide ? 'password' : 'text'">
+      <button mat-icon-button matSuffix tabindex="-1"(click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+      <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+      </button>
+      <mat-error *ngIf="userForm.get('password').hasError('required')">
+        Password is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="login-full-width" >
+      <input matInput placeholder="Name"
+              formControlName="name">
+      <mat-error *ngIf="userForm.get('name').hasError('required')">
+        Name is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="login-full-width" >
+      <input matInput placeholder="Surname"
+              formControlName="surname">
+      <mat-error *ngIf="userForm.get('surname').hasError('required')">
+        Surname is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="login-full-width" >
+      <input matInput placeholder="Email"
+              type="email"
+              formControlName="email">
+      <mat-error *ngIf="userForm.get('email').hasError('required')">
+        Email is <strong>required</strong>
+      </mat-error>
+      <mat-error *ngIf="userForm.get('email').hasError('email')">
+        Wrong email format
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="login-full-width" >
+      <input matInput placeholder="yearOfBirth"
+              type="number"
+              formControlName="yearOfBirth">
+      <mat-error *ngIf="userForm.get('yearOfBirth').hasError('required')">
+        yearOfBirth is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Select an option</mat-label>
+      <mat-select  formControlName="companyId">
+        <mat-option [value]="company.id" *ngFor="let company of companyData">{{ company.name }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <button mat-raised-button color="primary" type="submit" class="login-btn">Register user</button>
+    <mat-error class="error-form" *ngIf="formError">{{ formError }}</mat-error>
+</form>
+</mat-card>
+
+<table mat-table [dataSource]="companyData" class="mat-elevation-z8">
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef> Id </th>
+      <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+    </ng-container>
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef> Name </th>
+      <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="companyColums"></tr>
+    <tr mat-row *matRowDef="let row; columns: companyColums;"></tr>
+</table>
+
+<table mat-table [dataSource]="userData" class="mat-elevation-z8">
+    <ng-container matColumnDef="userId">
+      <th mat-header-cell *matHeaderCellDef> ID </th>
+      <td mat-cell *matCellDef="let element"> {{element.userId}} </td>
+    </ng-container>
+    <ng-container matColumnDef="username">
+      <th mat-header-cell *matHeaderCellDef> Username </th>
+      <td mat-cell *matCellDef="let element"> {{element.username}} </td>
+    </ng-container>
+    <ng-container matColumnDef="password">
+      <th mat-header-cell *matHeaderCellDef> Password </th>
+      <td mat-cell *matCellDef="let element" class="password-cell"> {{element.password}} </td>
+    </ng-container>
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef> Name </th>
+      <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+    </ng-container>
+    <ng-container matColumnDef="surname">
+      <th mat-header-cell *matHeaderCellDef> Surname </th>
+      <td mat-cell *matCellDef="let element"> {{element.surname}} </td>
+    </ng-container>
+    <ng-container matColumnDef="email">
+      <th mat-header-cell *matHeaderCellDef> E-Mail </th>
+      <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+    </ng-container>
+    <ng-container matColumnDef="yearOfBirth">
+      <th mat-header-cell *matHeaderCellDef> Year of Birth </th>
+      <td mat-cell *matCellDef="let element"> {{element.yearOfBirth}} </td>
+    </ng-container>
+    <ng-container matColumnDef="companyName">
+      <th mat-header-cell *matHeaderCellDef> Company name </th>
+      <td mat-cell *matCellDef="let element"> {{element.companyName}} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="userColums"></tr>
+    <tr mat-row *matRowDef="let row; columns: userColums;"></tr>
+</table>

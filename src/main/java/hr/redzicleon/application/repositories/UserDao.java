@@ -14,6 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
 
 import hr.redzicleon.application.model.User;
+import hr.redzicleon.application.services.UserDTO;
 
 @Repository
 public class UserDao implements Dao<User> {
@@ -32,6 +33,10 @@ public class UserDao implements Dao<User> {
 
 	public List<User> findAll() {
 		return namedParameterJdbcTemplate.query("SELECT * FROM users", new UserRowMapper());
+	}
+	
+	public List<UserDTO> findAllWithCompanyName() {
+		return namedParameterJdbcTemplate.query("SELECT * FROM company_users", new UserDtoRowMapper());
 	}
 
 	public Optional<User> get(int id) {

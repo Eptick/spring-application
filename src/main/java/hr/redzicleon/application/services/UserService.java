@@ -16,4 +16,6 @@ public interface UserService {
 	
 	public User updateUserInformation(User user);
 	
+	public List<UserDTO> getAllUsersWithCompanyName();
+	
 }

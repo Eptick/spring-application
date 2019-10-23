@@ -23,6 +23,10 @@ public class UserServiceImpl implements UserService {
 	public List<User> getAllUsers () {
 		return this.userDao.findAll();
 	}
+	
+	public List<UserDTO> getAllUsersWithCompanyName () {
+		return this.userDao.findAllWithCompanyName();
+	}
 
 	public User getUser(int id) {
 		Optional<User> user = this.userDao.get(id);

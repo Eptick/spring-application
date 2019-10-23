@@ -14,15 +14,6 @@ export class HttpService {
     this.base = environment.apiUrl
   }
 
-  async getCompanies() {
-    try {
-      let data = await this.get(`/company`)
-      return data
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
   objectToHttpParams(object: Object): HttpParams {
     let params = new HttpParams()
       for(let key in object) {
@@ -32,16 +23,16 @@ export class HttpService {
   }
 
   async get(path: String, params?: HttpParams, headers?: HttpHeaders) {
-    return await this.http.get(`${this.base}${path}`, {params: params, headers}).toPromise()
+    return await this.http.get(`${this.base}${path}`, {params: params, headers, withCredentials: true}).toPromise()
   }
-  async post(path: String, params?: HttpParams, headers?: HttpHeaders) {
-    return await this.http.post(`${this.base}${path}`, params.toString(), { headers: headers}).toPromise()
+  async post(path: String, params?: string, headers?: HttpHeaders) {
+    return await this.http.post(`${this.base}${path}`, params, { headers: headers, withCredentials: true}).toPromise()
   }
   async put(path: String, params?: HttpParams, headers?: HttpHeaders) {
-    return await this.http.put(`${this.base}${path}`, {params: params, headers}).toPromise()
+    return await this.http.put(`${this.base}${path}`, {params: params, headers, withCredentials: true}).toPromise()
   }
   async delete(path: String, headers?: HttpHeaders) {
-    return await this.http.delete(`${this.base}${path}`, { headers}).toPromise()
+    return await this.http.delete(`${this.base}${path}`, { headers, withCredentials: true }).toPromise()
   }
 }
 

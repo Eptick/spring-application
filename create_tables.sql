@@ -7,7 +7,7 @@ create table company (
 );
 create table users (
 	user_id int AUTO_INCREMENT, -- Shoudl this be done, explore this TODO
-	username varchar(50) not null,
+	username varchar(50) not null unique,
 	password varchar(60) not null,
 	enabled boolean not null,
 	name varchar(50) not null,
@@ -18,8 +18,8 @@ create table users (
 	foreign key (company_id) references company(id) on delete set null,
 	primary key (user_id, username)
 );
-create view company_users as select * from company left join users on company.id = users.company_id;
+create view company_users as select * from company right join users on company.id = users.company_id;
 
 insert into company values(default, "Beta Tau Beta");
-
-
+insert into company values(default, "Euroart");
+insert into company values(default, "Nidavellir");

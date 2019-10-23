@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import hr.redzicleon.application.controllers.reponses.ResponseObject;
 import hr.redzicleon.application.model.User;
+import hr.redzicleon.application.services.UserDTO;
 import hr.redzicleon.application.services.UserService;
 
 @RestController()
@@ -28,8 +30,8 @@ public class UserController {
 
 	@RequestMapping(method = RequestMethod.GET, value= {"", "/"})
 	@ResponseBody
-	public List<User> getAllUsers() {   
-	    return this.userService.getAllUsers();
+	public List<UserDTO> getAllUsers() {   
+	    return this.userService.getAllUsersWithCompanyName();
 	}
 
 	@ResponseBody
@@ -39,9 +41,10 @@ public class UserController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(value = "/register", method = RequestMethod.POST )
-	public void registerUser(@RequestBody User user) {
+	@RequestMapping(value = {"/", ""}, method = RequestMethod.POST )
+	public ResponseObject registerUser(@RequestBody User user) {
 		this.userService.addNewUser(user);
+		return ResponseObject.success("");
 	 }
 	
 	@ExceptionHandler(EmptyResultDataAccessException.class)
@@ -51,7 +54,7 @@ public class UserController {
 	
 	
 	@ExceptionHandler(org.springframework.dao.DuplicateKeyException.class)
-    public ResponseEntity<Void> handleUserExists() {
-        return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
+    public ResponseObject handleUserExists() {
+        return ResponseObject.error("Username already exists");
     }
 }
