@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpService } from './http-service.service';
 import { HttpHeaders, HttpParams } from '@angular/common/http';
-import { CookieService } from 'ngx-cookie-service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,9 +9,10 @@ export class AuthService {
 
   errorMessage: String;
   errorCode: number;
-  loggedIn = false;
+  authenticated = false;
 
-  constructor(public httpService: HttpService, public cookieService: CookieService) {
+  constructor(public httpService: HttpService) {
+    this.authenticated = localStorage.getItem('loggedIn') ? true : false;
   }
 
   async login(username, password) {
@@ -20,7 +20,7 @@ export class AuthService {
     try {
       let params = new HttpParams().set("username", username).set( "password", password)
       let d  = await this.httpService.post('/login', params, headers);
-      this.loggedIn = true
+      this.loggedIn()
       return { success: true }
     } catch (error) {
       return { success: false,  message: this.errorMessage, errorCode: this.errorCode}
@@ -28,10 +28,20 @@ export class AuthService {
 
   }
 
+  loggedIn () {
+    this.authenticated = true
+    localStorage.setItem('loggedIn', "true")
+  }
+
+  loggedOut() {
+    this.authenticated = false;
+    localStorage.removeItem('loggedIn')
+  }
+
   async logout() {
     try {
       await this.httpService.get('/logout');
-      this.loggedIn = false
+      this.loggedOut();
       return { success: true }
     } catch (error) {
       return { success: false,  message: error.message}
