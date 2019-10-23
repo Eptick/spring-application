@@ -14,11 +14,9 @@ export class InterceptorService implements HttpInterceptor {
 
   private handleAuthError(err: HttpErrorResponse): Observable<any> {
     if (err.status === 401 || err.status === 403 || err.status === 0) {
-        //navigate /delete cookies or whatever
         this.authService.loggedOut()
         this.authService.logout()
         this.router.navigateByUrl('/login');
-        // if you've caught / handled the error, you don't want to rethrow it unless you also want downstream consumers to have to handle it as well.
         return of(err.message);
     }
     return Observable.throw(err);

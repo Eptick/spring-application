@@ -14,14 +14,6 @@ export class HttpService {
     this.base = environment.apiUrl
   }
 
-  objectToHttpParams(object: Object): HttpParams {
-    let params = new HttpParams()
-      for(let key in object) {
-        params.set(key, object[key])
-      }
-      return params;
-  }
-
   async get(path: String, params?: HttpParams, headers?: HttpHeaders) {
     return await this.http.get(`${this.base}${path}`, {params: params, headers, withCredentials: true}).toPromise()
   }

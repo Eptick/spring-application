@@ -19,7 +19,7 @@ export class AuthService {
     const headers = new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded' });
     try {
       let params = new HttpParams().set("username", username).set( "password", password)
-      let d  = await this.httpService.post('/login', params.toString(), headers);
+      await this.httpService.post('/login', params.toString(), headers);
       this.loggedIn()
       return { success: true }
     } catch (error) {
