@@ -1,6 +1,5 @@
 package hr.redzicleon.application.config;
 
-import java.util.Arrays;
 
 import javax.sql.DataSource;
 
@@ -8,30 +7,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpMethod;
-import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.CorsConfigurationSource;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-
 import hr.redzicleon.application.config.auth.AuthSuccessHandler;
 
 @Configuration
 @EnableWebSecurity
 @ComponentScan(basePackages = { "hr.redzicleon.application.config" })
 @ComponentScan(basePackages = { "hr.redzicleon.application.config.auth" })
-public class SecurityConfig  extends WebSecurityConfigurerAdapter { // Could this extend be causing problems, explore it
+public class SecurityConfig  extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	private DataSource dataSource;
@@ -47,6 +39,7 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter { // Could thi
 	 * Selects the correct data from the users table
 	 * Mocs the role to USER in the database
 	 * Sets the password encoder to BCrypt
+	 * Since i'm using both the web and http, global configuration suits best
 	 * @param auth
 	 * @throws Exception
 	 */
@@ -85,11 +78,8 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter { // Could thi
 	    .antMatchers("/company/**").authenticated()
 	    .antMatchers(HttpMethod.OPTIONS).permitAll()
 	    .and()
-	    .formLogin()
-	    .loginPage("/login")
-	    .permitAll()
+	    .formLogin().loginPage("/login").permitAll()
 	    .loginProcessingUrl("/login")
-	    .defaultSuccessUrl("/")
 	    .successHandler(new AuthSuccessHandler())
 	    .failureHandler(new SimpleUrlAuthenticationFailureHandler())
 	    .and()
@@ -97,16 +87,4 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter { // Could thi
 	    .and()
 	    .logout();
 	}
-	
-	@Bean
-    CorsConfigurationSource corsConfigurationSource() {
-        CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("*"));
-        configuration.setAllowCredentials(true);
-        configuration.setAllowedMethods(Arrays.asList("*"));
-        configuration.setAllowedHeaders(Arrays.asList("*"));
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", configuration);
-        return source;
-    }
 }

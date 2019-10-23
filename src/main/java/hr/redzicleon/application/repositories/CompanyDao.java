@@ -21,9 +21,7 @@ public class CompanyDao implements Dao<Company> {
 
     @Autowired
     public void setDataSource(final DataSource dataSource) {
-
         namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
-        
     }
     
     public List<Company> findAll() {
@@ -37,7 +35,6 @@ public class CompanyDao implements Dao<Company> {
 
 	public Optional<Company> get(int id) {
 		final SqlParameterSource namedParameters = new MapSqlParameterSource().addValue("id", id);
-		
         return Optional.ofNullable(namedParameterJdbcTemplate.queryForObject("SELECT * FROM company where id = :id", namedParameters, new CompanyRowMapper()));
     }
 
@@ -46,12 +43,11 @@ public class CompanyDao implements Dao<Company> {
 				.addValue("id", "default")
 				.addValue("name", t.getName());
         namedParameterJdbcTemplate.update("INSERT INTO company VALUES (:id, :name)", namedParameters);
-		
 	}
 
 	public void update(Company t) {
 		if(t.getId() == null) return;
-		
+
 		final SqlParameterSource namedParameters = new MapSqlParameterSource()
 				.addValue("id", t.getId())
 				.addValue("name", t.getName());
@@ -59,7 +55,6 @@ public class CompanyDao implements Dao<Company> {
 	}
 
 	public void delete(int id) {
-		
 		final SqlParameterSource namedParameters = new MapSqlParameterSource()
 				.addValue("id", id);
         namedParameterJdbcTemplate.update("DELETE FROM company WHERE id = :id", namedParameters);

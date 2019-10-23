@@ -6,7 +6,6 @@ import java.sql.SQLException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowMapper;
 
-import hr.redzicleon.application.model.User;
 import hr.redzicleon.application.services.UserDTO;
 
 public class UserDtoRowMapper implements RowMapper<UserDTO> {

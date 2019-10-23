@@ -10,47 +10,49 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import hr.redzicleon.application.model.User;
 
+@SuppressWarnings("serial")
 public class CustomUserPrincipal implements UserDetails {
-	
-	private User user;
-	
- 	public CustomUserPrincipal(User user) {
- 		this.user = user;
- 	}
 
-	public Collection<? extends GrantedAuthority> getAuthorities() {
-		final List<SimpleGrantedAuthority> authorities = Collections.singletonList(new SimpleGrantedAuthority("USER"));
-        return authorities;
+	private User user;
+
+	public CustomUserPrincipal(User user) {
+		this.user = user;
 	}
 
-    public String getUsername() {
-        return user.getUsername();
-    }
+	/**
+	 * The role of the user is always user for this case
+	 */
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		final List<SimpleGrantedAuthority> authorities = Collections.singletonList(new SimpleGrantedAuthority("USER"));
+		return authorities;
+	}
 
-    public String getPassword() {
-        return user.getPassword();
-    }
+	public String getUsername() {
+		return user.getUsername();
+	}
 
-    
-    public boolean isAccountNonExpired() {
-        return true;
-    }
+	public String getPassword() {
+		return user.getPassword();
+	}
 
-    public boolean isAccountNonLocked() {
-        return true;
-    }
+	public boolean isAccountNonExpired() {
+		return true;
+	}
 
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
+	public boolean isAccountNonLocked() {
+		return true;
+	}
 
-    public boolean isEnabled() {
-        return true;
-    }
+	public boolean isCredentialsNonExpired() {
+		return true;
+	}
 
-    public User getUser() {
-        return user;
-    }
-	
+	public boolean isEnabled() {
+		return true;
+	}
+
+	public User getUser() {
+		return user;
+	}
 
 }
