@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+  import { Component, OnInit } from '@angular/core';
 import { CompanyService } from '../dataservices/company.service';
 import { Company } from '../interfaces/Company';
 import { User } from '../interfaces/User';
@@ -48,13 +48,13 @@ export class OverviewComponent implements OnInit {
 
   initForm () {
     this.userForm = this.formBuilder.group({
-      username: ['', [Validators.required, Validators.minLength(4)]],
-      password: ['', [Validators.required, Validators.minLength(4)]],
+      username: ['', [Validators.required, Validators.minLength(3)]],
+      password: ['', [Validators.required, Validators.minLength(3)]],
       name: ['', [Validators.required, Validators.minLength(2)]],
       surname: ['', [Validators.required, Validators.minLength(2)]],
       email: ['', [Validators.required, Validators.email]],
       yearOfBirth: [2000, [Validators.required, Validators.min(1900), Validators.max(new Date().getFullYear())]],
-      companyId: ['', [Validators.required, Validators.minLength(4)]]
+      companyId: ['', [Validators.required]]
     })
   }
 
@@ -69,6 +69,7 @@ export class OverviewComponent implements OnInit {
 
   async submit() {
     try {
+      this.userForm.markAllAsTouched();
       if(this.userForm.invalid) return
       const user: User = {
         username: this.userForm.get('username').value,

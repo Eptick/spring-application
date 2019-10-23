@@ -8,6 +8,7 @@ body { margin: 0; font-family: 'Montserrat', "Helvetica Neue", sans-serif; }
     padding: 10px;
     display: block;
     margin: 0 auto;
+    box-sizing: border-box;
 }
 input {
     border: none;
@@ -15,8 +16,10 @@ input {
     width: 100%;
     height: 30px;
     line-height: 30px;
+    font-family: 'Montserrat', "Helvetica Neue", sans-serif;
 }
 ::placeholder {
+    font-family: 'Montserrat', "Helvetica Neue", sans-serif;
     font-size: 13px;
 }
 input:focus {
@@ -28,6 +31,7 @@ input:focus {
     border-radius: 7px;
     height: 30px;
     font-size: 14px;
+    width: 100%;
     border: none;
     &:focus {
         outline: none;
@@ -39,13 +43,75 @@ input:focus {
         outline: none;
         transform: translate3d(2px, 2px, 0);
     }
-    // box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2),
-    //             0px 2px 2px 0px rgba(0, 0, 0, 0.14),
-    //             0px 1px 5px 0px rgba(0,0,0,.12);
     color: white;
     &.primary {
         background: #11998e;
         background: linear-gradient(to right, #4CB8C4 0%, #3CD3AD 51%, #4CB8C4 100%);
+    }
+}
+label {
+    font-family: 'Montserrat', "Helvetica Neue", sans-serif;
+    font-size: 13px;
+    display: block;
+    width: 25%;
+    float: left;
+    line-height: 30px;
+    color: #999;
+    text-overflow: ellipsis;
+    height: 31px;
+    overflow: hidden;
+}
+select {
+    width: 75%;
+    appearance: none;
+    font-family: 'Montserrat', "Helvetica Neue", sans-serif;
+    font-size: 13px;
+    border: none;
+    border-bottom: 1px solid #999;
+    border-radius: 0;
+    box-shadow: none;
+    font-size: 11px;
+    line-height: 30px;
+    background: none;
+    outline: none;
+    option {
+        font-family: 'Montserrat', "Helvetica Neue", sans-serif;
+    }
+}
 
+table {
+    margin: 5px;
+    width: 100%;
+    margin-bottom: 30px;
+    border-radius: 3px;
+    border-collapse: collapse;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+    th {
+        font-weight: bold;
+        font-size: 14px;
+        padding: 2px;
+        color: #777;
+        height: 35px;
+    }
+    td {
+        padding: 5px;
+        height: 25px;
+        text-align: center;
+        font-size: 12px;
+        &.password {
+            max-width: 50px;
+            word-wrap: break-word;
+            white-space: unset;
+            width: 23% !important;
+            overflow-wrap: break-word;
+            word-wrap: break-word;
+            word-break: break-word;
+            hyphens: auto;
+        }
+    }
+    tr:not(:first-child) {
+        td {
+            border-top: #CCC 1px solid;
+        }
     }
 }

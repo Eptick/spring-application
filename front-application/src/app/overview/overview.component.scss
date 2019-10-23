@@ -1,46 +1,10 @@
-table {
-    width: 100%;
-    margin-bottom: 25px;
-    td:first-of-type:not {
-        padding: 5px;
-    } 
-    .password-cell {
-        width: 10%;
-        max-width: 50;
-        word-wrap: break-word !important;
-        white-space: unset !important;
-        flex: 0 0 28% !important;
-        width: 28% !important;
-        overflow-wrap: break-word;
-        word-wrap: break-word;
-
-        word-break: break-word;
-
-        -ms-hyphens: auto;
-        -moz-hyphens: auto;
-        -webkit-hyphens: auto;
-        hyphens: auto;
-    }
+.card {
+  max-width: 480px;
+  margin: 0 auto;
+  margin-bottom: 35px;
 }
-.login-form {
-    display: flex;
-    flex-direction: column;
-  }
-  .card {
-    max-width: 480px;
-    margin: 0 auto;
-    margin-bottom: 25px;
-  }
-  
-  .login-full-width {
-    width: 100%;
-  }
-  
-  .login-btn {
-      margin-top: 20px;
-  }
-  
-  .error-form {
-    margin-top: 20px;
-    padding-left: 0px;
-  }
+
+.error-form {
+  margin-top: 20px;
+  padding-left: 0px;
+}
